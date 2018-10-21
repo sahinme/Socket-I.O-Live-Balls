@@ -1,0 +1,14 @@
+{
+  "name": "socketio-live-balls",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Muhammed Enes Şahin <40808896+freeadmiral@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/freeadmiral/Socket-I.O-Live-Balls",
+  "dependencies": {
+    "angular": "^1.7.5",
+    "semantic": "^2.4.1"
+  }
+}
