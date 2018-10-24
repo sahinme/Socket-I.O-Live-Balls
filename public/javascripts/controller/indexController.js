@@ -1,12 +1,24 @@
 app.controller('indexController',['$scope','indexFactory',($scope,indexFactory)=>{
-    const connectionOptions={       
+
+    $scope.init=()=>{
+        const username=prompt('Please enter username');
+
+            if(username)
+                initSocket(username);
+            else
+                return false;
+    };
+    const initSocket=(username)=>{
+        const connectionOptions={       
             reconnectionAttempts:3,
             reconnectionDelay:600
     }
-    indexFactory.connectSocket('http://localhost:3000',connectionOptions)
+    indexFactory.connectSocket('http://localhost:3000',connectionOptions    )
     .then((socket)=>{
-        console.log('bağlantı gerçekleşti',socket);
+        socket.emit('newUser',{username});
     }).catch((err)=>{
         console.log(err);
     });
+    }
+    
 }]);
