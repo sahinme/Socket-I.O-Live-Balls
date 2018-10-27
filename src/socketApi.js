@@ -20,7 +20,12 @@ io.on('connection',(socket)=>{
         users[socket.id]=userData;
         console.log(users);
 
-        socket.broadcast.emit('newUser',userData);
+        socket.broadcast.emit('newUser',users[socket.id]);
+     });
+
+     socket.on('disconnect',()=>{
+        socket.broadcast.emit('disconUser',(users[socket.id]));
+        delete users[socket.id];
      });
 });
 
