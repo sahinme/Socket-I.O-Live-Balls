@@ -21,6 +21,7 @@ io.on('connection',(socket)=>{
         console.log(users);
 
         socket.broadcast.emit('newUser',users[socket.id]);
+            socket.emit('initPlayers',users);
      });
 
      socket.on('disconnect',()=>{

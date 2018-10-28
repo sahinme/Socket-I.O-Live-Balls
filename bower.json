@@ -9,6 +9,7 @@
   "homepage": "https://github.com/freeadmiral/Socket-I.O-Live-Balls",
   "dependencies": {
     "angular": "^1.7.5",
-    "semantic": "^2.4.1"
+    "semantic": "^2.4.1",
+    "jquery": "^3.3.1"
   }
 }
