@@ -5,10 +5,11 @@ block content
 		.ui.one.column.stackable.center.aligned.page.grid.margin-30
 			.column.twelve.wide
 				.ui.stacked.segment.gameArea(ng-click="onClickPlayer($event)")
-					.circle.blue(
+					.circle(
 						ng-repeat="player in players",
 						ng-style="{'left':player.position.x+'px','top':player.position.y+'px'}"
-						id="{{player.id}}"
+						id="{{player.id}}",
+						class="{{player.color}}"
 						)
 						.relative
 							span.name {{player.username}}
@@ -23,7 +24,12 @@ block content
 							.description.message(ng-if="!message.type.message")
 								| ayrıldı
 							.description.message(ng-if="message.type.message")
-								| katıldı	
-				.ui.action.input.fluid
-					input(type='text', placeholder='Type here...')
-					button.ui.button Send
+								| katıldı
+
+						.content(ng-if="message.type.code")
+							a.header.name {{ message.username }} &nbsp;
+							.description.message
+								| {{message.text}}				
+				form.ui.action.input.fluid(ng-submit="newMessage()")
+					input(ng-model='message', placeholder='Type here...')
+					button.ui.button(type="submit") Send

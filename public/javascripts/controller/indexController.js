@@ -50,7 +50,7 @@ app.controller('indexController',['$scope','indexFactory',($scope,indexFactory)=
             $scope.$apply();
         });
         socket.on('animate',(data)=>{
-            $('#'+data.socketId).animate({'left':data.y,'top':data.x },()=>{    
+            $('#'+data.socketId).animate({'left':data.x,'top':data.y },()=>{    
                 animate=false;
             });        });
 
@@ -65,7 +65,20 @@ app.controller('indexController',['$scope','indexFactory',($scope,indexFactory)=
                 animate=false;
             });
         };
-    }
+    };
+        $scope.newMessage=()=>{
+            let message=$scope.message;
+            const  messageData={
+                type:{
+                    code:1,  //server or user message
+                },
+                username:username,
+                text:message
+            };
+            $scope.messages.push(messageData);
+            $scope.message='';
+        };
+
     }).catch((err)=>{
         console.log(err);
     });
