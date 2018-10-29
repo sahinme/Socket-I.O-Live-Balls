@@ -10,6 +10,21 @@ app.controller('indexController',['$scope','indexFactory',($scope,indexFactory)=
             else
                 return false;
     };
+
+    function showBubble(id,message){
+        $('#'+id).find('.message').show().html(message);
+        setTimeout(()=>{        
+            $('#'+id).find('.message').hide();       
+        },2000);
+    };
+
+    function scrollTop(){
+        setTimeout(()=>{
+            const element=document.getElementById('chat-area');
+            element.scrollTop=element.scrollHeight;
+        });    
+    };
+
     const initSocket=(username)=>{
         const connectionOptions={       
             reconnectionAttempts:3,
@@ -52,7 +67,15 @@ app.controller('indexController',['$scope','indexFactory',($scope,indexFactory)=
         socket.on('animate',(data)=>{
             $('#'+data.socketId).animate({'left':data.x,'top':data.y },()=>{    
                 animate=false;
-            });        });
+            });
+        });
+
+        socket.on('newMessage',(data)=>{
+            $scope.messages.push(data);
+            $scope.$apply();
+            showBubble(data.socketId,data.text);
+            scrollTop();
+        });
 
         let animate=false;
         $scope.onClickPlayer= ($event)=>{
@@ -77,6 +100,10 @@ app.controller('indexController',['$scope','indexFactory',($scope,indexFactory)=
             };
             $scope.messages.push(messageData);
             $scope.message='';
+
+            socket.emit('newMessage',(messageData));
+                showBubble(socket.id,message);    
+                scrollTop();
         };
 
     }).catch((err)=>{
